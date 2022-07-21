@@ -58,8 +58,8 @@ router.get("/list", async (req, res) => {
     }
 })
 
-router.get("/:tokenId", async(req, res) => {
-    const tokenId = req.params.tokenId
+router.get("/", async(req, res) => {
+    const tokenId = req.query.tokenId
     try {
         const metadata = await getMetadata(tokenId)
         res.json(metadata)
