@@ -21,11 +21,6 @@ const express = require("express")
 
 const router = express.Router()
 
-router.use((req, res, next) => {
-    res.set("Cache-Control", "public, max-age=3600")
-    next()
-})
-
 router.get("/range", async (req, res) => {
     const { from, to } = req.query
     const length = to - from + 1
@@ -59,7 +54,7 @@ router.get("/list", async (req, res) => {
 })
 
 router.get("/", async(req, res) => {
-    const tokenId = req.query.tokenId
+    const tokenId = req.query.meta
     try {
         const metadata = await getMetadata(tokenId)
         res.json(metadata)
