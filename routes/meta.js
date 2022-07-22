@@ -54,7 +54,7 @@ router.get("/list", async (req, res) => {
 })
 
 router.get("/", async(req, res) => {
-    const tokenId = req.query.meta
+    const tokenId = req.query.tokenId
     try {
         const metadata = await getMetadata(tokenId)
         res.json(metadata)
