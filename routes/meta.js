@@ -29,13 +29,8 @@ router.get("/range", async (req, res) => {
         res.send("Too many lambos")
     }
     const tokenIds = Array.from(Array(length).keys()).map(item => Number(item) + Number(from))
-    try {
-        const metadata = await getBulkMetadata(tokenIds)
-        res.json(metadata)
-    } catch(e) {
-        console.error(e)
-        res.sendStatus(500)
-    }
+    const metadata = await getBulkMetadata(tokenIds)
+    res.json(metadata)
 })
 
 router.get("/list", async (req, res) => {
@@ -44,24 +39,14 @@ router.get("/list", async (req, res) => {
         res.status(500)
         res.send("Too many lambos")
     }
-    try {
-        const metadata = await getBulkMetadata(tokenIds)
-        res.json(metadata)
-    } catch(e) {
-        console.error(e)
-        res.sendStatus(500)
-    }
+    const metadata = await getBulkMetadata(tokenIds)
+    res.json(metadata)
 })
 
 router.get("/", async(req, res) => {
     const tokenId = req.query.tokenId
-    try {
-        const metadata = await getMetadata(tokenId)
-        res.json(metadata)
-    } catch(e) {
-        console.error(e)
-        res.sendStatus(500)
-    }
+    const metadata = await getMetadata(tokenId)
+    res.json(metadata)
 })
 
 async function getBulkMetadata(tokenIds) {
