@@ -33,12 +33,8 @@ router.get("/range", async (req, res) => {
     res.json(metadata)
 })
 
-router.get("/list", async (req, res) => {
+router.get("/list", lamboLimit, async (req, res) => {
     const tokenIds = JSON.parse(req.query.tokenIds)
-    if (tokenIds.length > config.MAX_REQUEST) {
-        res.status(500)
-        res.send("Too many lambos")
-    }
     const metadata = await getBulkMetadata(tokenIds)
     res.json(metadata)
 })
@@ -51,6 +47,15 @@ router.get("/", async(req, res) => {
 
 async function getBulkMetadata(tokenIds) {
     return await Promise.all(tokenIds.map(tokenId => getMetadata(tokenId)))
+}
+
+function lamboLimit(req,res,next) {
+    const tokenIds = JSON.parse(req.query.tokenIds)
+    if (tokenIds.length > config.MAX_REQUEST) {
+        res.status(500)
+        res.send("Too many lambos")
+    }
+    next()
 }
 
 async function getMetadata(tokenId) {
