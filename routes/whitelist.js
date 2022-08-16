@@ -13,13 +13,13 @@ const router = express.Router()
 
 router.get("/hmwl/:tokenId", (req, res) => {
     const number = Number(req.params.tokenId)
-    if (number) res.json({...getBase(number), ...harmony})
+    if (number != null) res.json({...getBase(number), ...harmony})
     else res.sendStatus(404)
 })
 
 router.get("/amwl/:tokenId", (req, res) => {
     const number = Number(req.params.tokenId)
-    if (number) res.json({...getBase(number), ...avax})
+    if (number != null) res.json({...getBase(number), ...avax})
     else res.sendStatus(404)
 })
 
